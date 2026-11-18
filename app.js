@@ -20,7 +20,24 @@ function saveAndRender() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   list.replaceChildren(...items.map(item => {
     const row = document.createElement("li");
-    row.textContent = item;
+
+    const label = document.createElement("span");
+    label.className = "item-label";
+    label.textContent = item;
+
+    const removeButton = document.createElement("button");
+    removeButton.className = "delete-button";
+    removeButton.type = "button";
+    removeButton.textContent = "Supprimer";
+    removeButton.setAttribute("aria-label", `Supprimer ${item}`);
+    removeButton.addEventListener("click", () => {
+      const index = items.indexOf(item);
+      if (index === -1) return;
+      items.splice(index, 1);
+      saveAndRender();
+    });
+
+    row.append(label, removeButton);
     return row;
   }));
 }
@@ -37,7 +54,6 @@ form.addEventListener("submit", event => {
 
 sendButton.addEventListener("click", () => {
   const message = items.join("\n");
-  // Required behavior: clear local data immediately when the app's Send button is tapped.
   items = [];
   saveAndRender();
 
@@ -49,5 +65,7 @@ sendButton.addEventListener("click", () => {
 saveAndRender();
 
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
-  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+  window.addEventListener("load", () =>
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {})
+  );
 }
