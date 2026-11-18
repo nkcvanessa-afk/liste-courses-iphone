@@ -62,12 +62,25 @@ button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: tra
   min-height: 75px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 0 5px;
   border-bottom: 2px solid var(--line);
   font-size: 22px;
   line-height: 1.3;
   overflow-wrap: anywhere;
 }
+.item-label { min-width: 0; }
+.delete-button {
+  flex: 0 0 auto;
+  padding: 8px 0 8px 8px;
+  border: 0;
+  background: transparent;
+  color: #737b98;
+  font-size: 14px;
+  font-weight: 500;
+}
+.delete-button:active { color: var(--ink); }
 .send-button {
   width: 100%;
   min-height: 76px;
