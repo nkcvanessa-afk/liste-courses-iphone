@@ -5,8 +5,8 @@ const input = document.querySelector("#item-input");
 const list = document.querySelector("#items");
 const sendButton = document.querySelector("#send-button");
 const suggestions = document.querySelector("#suggestions");
+const suggestionsBlock = document.querySelector("#suggestions-block");
 const CUSTOM_ITEMS_KEY = "liste-courses-custom-items-v1";
-
 const CATALOG = [
   "Pommes", "Oranges", "Clémentines", "Citrons", "Tomates", "Pommes de terre", "Carottes", "Oignons", "Salade verte", "Salade iceberg", "Salade laitue", "Mâche", "Concombre", "Courgettes", "Poivrons", "Champignons", "Brocoli",
   "Lait", "Lait d’avoine", "Lait de soja", "Lait d’amande", "Lait matcha", "Beurre demi-sel", "Crème fraîche", "Crème fraîche végétale", "Yaourts nature", "Yaourt végétal", "Skyr", "Fromage blanc", "Fromage râpé", "Mozzarella râpée", "Emmental", "Mozzarella", "Cheddar", "Brie", "Fromage de chèvre", "Camembert", "Cottage cheese", "Babybel", "Œufs", "Desserts lactés",
@@ -34,7 +34,7 @@ function normalize(value) {
 
 function renderSuggestions() {
   const query = normalize(input.value);
-  if (!query) { suggestions.hidden = true; suggestions.replaceChildren(); return; }
+  if (!query) { suggestions.hidden = true; suggestionsBlock.hidden = true; suggestions.replaceChildren(); return; }
   const matches = [...new Map([...CATALOG, ...customItems].map(item => [normalize(item), item])).values()]
     .filter(item => normalize(item).includes(query)).slice(0, 8);
   suggestions.replaceChildren(...matches.map(item => {
@@ -43,11 +43,12 @@ function renderSuggestions() {
     option.type = "button";
     option.className = "suggestion-button";
     option.textContent = item;
-    option.addEventListener("click", () => { input.value = item; suggestions.hidden = true; input.focus(); });
+    option.addEventListener("click", () => { input.value = item; suggestions.hidden = true; suggestionsBlock.hidden = true; input.focus(); });
     row.append(option);
     return row;
   }));
   suggestions.hidden = matches.length === 0;
+  suggestionsBlock.hidden = matches.length === 0;
 }
 
 function loadItems() {
@@ -104,6 +105,7 @@ input.addEventListener("keydown", event => { if (event.key === "Escape") suggest
 
 sendButton.addEventListener("click", () => {
   const message = items.join("\n");
+  // Required behavior: clear local data immediately when the app's Send button is tapped.
   items = [];
   saveAndRender();
 

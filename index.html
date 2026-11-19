@@ -3,26 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#FFF6FA">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Courses">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-180.png">
   <link rel="stylesheet" href="styles.css">
-  <title>Liste de courses</title>
+  <title>Ma Liste de Courses</title>
 </head>
 <body>
   <main class="app" aria-label="Liste de courses">
-    <h1 class="title">Ma Liste de Courses</h1>
+    <header class="app-header">
+      <h1 class="title"><span>Ma Liste de</span><span class="title-accent">Courses</span></h1>
+      <img class="brand-logo" src="logo-nkc.png" alt="NKC By VK">
+    </header>
+
     <form id="add-form" class="add-form" autocomplete="off">
       <label class="visually-hidden" for="item-input">Ajouter un article</label>
       <input id="item-input" name="item" type="text" placeholder="Ajouter un article" enterkeyhint="done" autocapitalize="sentences" autocomplete="off">
       <button class="add-button" type="submit">Ajouter</button>
     </form>
 
-    <ul id="suggestions" class="suggestions" aria-label="Suggestions du catalogue" hidden></ul>
-    <ul id="items" class="items" aria-label="Articles de la liste"></ul>
+    <section id="suggestions-block" class="suggestions-block" aria-label="Suggestions" hidden>
+      <h2 class="section-title">Suggestions</h2>
+      <ul id="suggestions" class="suggestions" aria-label="Suggestions du catalogue" hidden></ul>
+    </section>
+
+    <section class="items-card" aria-labelledby="items-heading">
+      <h2 id="items-heading" class="section-title items-heading">Dans ma liste</h2>
+      <ul id="items" class="items" aria-label="Articles de la liste"></ul>
+    </section>
+
     <button id="send-button" class="send-button" type="button">Envoyer</button>
   </main>
   <script src="app.js"></script>
