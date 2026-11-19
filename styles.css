@@ -58,6 +58,28 @@ button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: tra
   padding: 0;
   margin: 30px 0 30px;
 }
+.suggestions {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.suggestions[hidden] { display: none; }
+.suggestion-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+  font-size: 17px;
+}
+.suggestion-button:active { background: var(--field); }
 .items li {
   min-height: 75px;
   display: flex;
